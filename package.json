@@ -39,15 +39,13 @@
         "framer-motion": "^11.1.7",
         "html-react-parser": "^5.1.10",
         "lucide-react": "^0.367.0",
-        "novel": "^0.1.22",
         "pocketbase": "^0.21.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.22.3",
         "tailwind-merge": "^2.3.0",
         "tailwindcss-animate": "^1.0.7",
-        "tiptap-extension-resize-image": "^1.0.4",
-        "zustand": "^4.5.2"
+        "tiptap-extension-resize-image": "^1.0.4"
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.12",

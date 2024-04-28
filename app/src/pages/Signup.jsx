@@ -12,12 +12,10 @@ import {
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import pb from "../pb";
-import useUserStore from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../components/ui/use-toast";
 
 export function Signup() {
-    const user = useUserStore((s) => s.user);
     const navigate = useNavigate();
     const { toast } = useToast();
 
@@ -47,8 +45,8 @@ export function Signup() {
     );
 
     useEffect(() => {
-        user && navigate("/");
-    }, [user, navigate]);
+        pb.authStore.model && navigate("/");
+    }, [navigate]);
 
     const sign = useCallback(async () => {
         try {

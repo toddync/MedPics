@@ -13,11 +13,10 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Toaster } from "../components/ui/toaster";
 import { useToast } from "../components/ui/use-toast";
-import useUserStore from "../stores/userStore";
+
 import pb from "../pb";
 
 export function Login() {
-    const { user, log } = useUserStore();
     const { toast } = useToast();
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
@@ -40,8 +39,6 @@ export function Login() {
                         credentials.identity,
                         credentials.password
                     );
-
-                log();
             } catch (error) {
                 console.error("error logging user: ", error.message);
                 toast({
@@ -50,11 +47,11 @@ export function Login() {
                 });
             }
         })();
-    }, [credentials, log, toast]);
+    }, [credentials, toast]);
 
     useEffect(() => {
-        user && navigate("/");
-    }, [user, navigate]);
+        pb.authStore.model && navigate("/");
+    }, [navigate]);
 
     return (
         <>
