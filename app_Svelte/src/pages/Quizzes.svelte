@@ -3,21 +3,21 @@
 	import Loader from "$lib/components/Loader.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
-	import { modules } from "$lib/stores/modulesStore";
+	import { quizzes } from "$lib/stores/quizzesStore";
 	import { user } from "$lib/stores/userStore";
-	import { Blocks } from "lucide-svelte";
+	import { BookMarked } from "lucide-svelte";
 	import { navigate } from "svelte-routing";
 
 	$: $user.data == undefined && $user.data == {} && navigate("/Login");
 </script>
 
 <div class="h-full pl-7 grid auto-rows-max md:grid-cols-2 lg:grid-cols-3 gap-5">
-	{#if $modules.queried}
-		{#each $modules.contents.documents || [] as module}
+	{#if $quizzes.queried}
+		{#each $quizzes.contents.documents || [] as quiz}
 			<Button
 				class="bg-transparent h-fit text-start p-0 hover:bg-transparent"
 				on:click={() => {
-					navigate(`/Module/${module.$id}`);
+					navigate(`/Quiz/${quiz.$id}`);
 				}}
 			>
 				<Card.Root
@@ -25,13 +25,13 @@
 				>
 					<Card.Header>
 						<Card.Title class="text-2xl text-wrap flex">
-							{module.titulo}
-							<Blocks
+							{quiz.titulo}
+							<BookMarked
 								class="ml-auto w-9 group-hover:text-lime-400"
 							/>
 						</Card.Title>
 						<Card.Description class="text-wrap h-full">
-							{module.descricao || ""}
+							{quiz.descricao}
 						</Card.Description>
 					</Card.Header>
 				</Card.Root>

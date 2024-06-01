@@ -9,9 +9,10 @@
 	import { onMount } from "svelte";
 	import { navigate } from "svelte-routing";
 	import { writable } from "svelte/store";
-	import { v4 as uuidv4 } from "uuid";
 	import { z } from "zod";
 	import { databases } from "../../appwrite";
+
+	const queried = writable(false);
 
 	const schema = z.object({
 		content: z
@@ -81,13 +82,14 @@
 			content: $data.content,
 			descricao: $data.descricao,
 		};
+		$queried = true;
 	}
 	onMount(start);
 
 	$: $user.data !== undefined && $user.professor == false && navigate("/");
 </script>
 
-{#if $data.titulo}
+{#if $queried}
 	<!-- content here -->
 	<div class="h-full pl-7 grid auto-rows-max gap-10">
 		<div>

@@ -8,6 +8,9 @@
 	import { user } from "$lib/stores/userStore";
 	import {
 		Blocks,
+		Book,
+		BookMarked,
+		BookmarkPlus,
 		Command,
 		Home,
 		NotebookPenIcon,
@@ -21,6 +24,7 @@
 	import { tweened } from "svelte/motion";
 	import { account, databases, teams } from "../appwrite";
 	import { Badge } from "$lib/components/ui/badge";
+	import { quizzes } from "$lib/stores/quizzesStore";
 
 	const expand = tweened(48, { duration: 1000 });
 
@@ -33,6 +37,7 @@
 				$user.data = (await account.getSession("current")) || {};
 
 				getModules();
+				getQuizzes();
 			} catch (error) {}
 			try {
 				let r = await teams.get("6657a5e200160dc5390b");
@@ -44,12 +49,34 @@
 	}
 	onMount(login);
 
+	async function getQuizzes() {
+		$quizzes.queried = false;
+		$quizzes.contents = await databases.listDocuments(
+			"6657af020009478061c0",
+			"6659fcb5000c04c447db",
+		);
+		$quizzes.queried = true;
+		return true;
+	}
+
+	async function deleteQuiz(id) {
+		await databases.deleteDocument(
+			"6657af020009478061c0",
+			"6659fcb5000c04c447db",
+			id,
+		);
+
+		navigate("/Quizzes");
+	}
+
 	async function getModules() {
+		$modules.queried = false;
 		$modules.contents = await databases.listDocuments(
 			"6657af020009478061c0",
 			"6657af150036aa592e15",
 		);
 		$modules.queried = true;
+		return true;
 	}
 
 	async function deleteModule(id) {
@@ -62,16 +89,17 @@
 		navigate("/");
 	}
 
-	$: $Url.pathname && $user.data !== undefined && getModules();
+	$: $Url.pathname &&
+		$user.data !== undefined &&
+		getModules() &&
+		getQuizzes();
 </script>
 
 {#if !$Url.pathname.toLowerCase().includes("login") && !$Url.pathname
 		.toLowerCase()
 		.includes("signup")}
 	<Search />
-	<div
-		class="absolute w-full h-full grid flex-wrap grid-cols-1 auto-rows-max"
-	>
+	<div class="absolute w-full h-full grid flex-wrap grid-cols-1">
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div
 			class="border-b-2 border-r-2 p-2 h-fit flex md:h-[100svh] min-h-[3rem] md:pt-1 z-50 bg-background transition-all ease-linear group sticky md:fixed top-0"
@@ -114,6 +142,20 @@
 					</span>
 				</Button>
 
+				<Button
+					class="group-hover:mt-2 group-hover:w-full group-hover:p-2 transition-all duration-400 ease-linear flex mb-3 mx-auto"
+					size="icon"
+					variant="ghost"
+					on:click={() => navigate("/Quizzes")}
+				>
+					<BookMarked />
+					<span
+						class="w-[0px] group-hover:w-fit group-hover:ml-4 overflow-hidden transition-all duration-400 ease-linear text-muted-foreground flex gap-1 group-hover:mr-auto"
+					>
+						<p class="h-fit">Quizzes</p>
+					</span>
+				</Button>
+
 				{#if $user.professor}
 					<hr class="border-t-4 rounded-lg my-3" />
 					<Button
@@ -136,6 +178,26 @@
 							class="w-[0px] group-hover:w-fit group-hover:ml-4 overflow-hidden transition-all duration-400 ease-linear text-muted-foreground flex gap-1 group-hover:mr-auto"
 						>
 							<p class="h-fit my-auto">New Module</p>
+						</span>
+					</Button>
+
+					<Button
+						class="group-hover:mt-2 group-hover:w-full group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
+						size="icon"
+						variant="ghost"
+						on:click={() => navigate("/NewQuiz")}
+					>
+						<div class="relative h-fit my-auto">
+							<Plus
+								class="absolute translate-x-1/2 -translate-y-1/2 top-1.5 right-0.5 w-3 z-50 bg-background h-2.5"
+							/>
+
+							<BookMarked />
+						</div>
+						<span
+							class="w-[0px] group-hover:w-fit group-hover:ml-4 overflow-hidden transition-all duration-400 ease-linear text-muted-foreground flex gap-1 group-hover:mr-auto"
+						>
+							<p class="h-fit my-auto">New Quiz</p>
 						</span>
 					</Button>
 				{/if}
@@ -176,11 +238,46 @@
 						</span>
 					</Button>
 				{/if}
-				<!-- {#if $Url.pathname.toLowerCase() == "quizz"}{/if} -->
+				{#if $Url.pathname
+					.toLowerCase()
+					.includes("quiz/") && !$Url.pathname
+						.toLowerCase()
+						.includes("editquiz/")}
+					<hr class="border-t-4 rounded-lg my-3" />
+
+					<Button
+						class="group-hover:mt-2 group-hover:w-full group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
+						size="icon"
+						variant="ghost"
+						on:click={() =>
+							navigate(`/EditQuiz/${$quizzes.current.$id}`)}
+					>
+						<NotebookPenIcon />
+						<span
+							class="w-[0px] group-hover:w-fit group-hover:ml-4 overflow-hidden transition-all duration-400 ease-linear text-muted-foreground flex gap-1 group-hover:mr-auto"
+						>
+							<p class="h-fit my-auto">Edit Quiz</p>
+						</span>
+					</Button>
+
+					<Button
+						class="group-hover:mt-2 group-hover:w-full group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
+						size="icon"
+						variant="ghost"
+						on:click={() => deleteQuiz($quizzes.current.$id)}
+					>
+						<Trash2 class="text-red-900" />
+						<span
+							class="w-[0px] group-hover:w-fit group-hover:ml-4 overflow-hidden transition-all duration-400 ease-linear text-muted-foreground flex gap-1 group-hover:mr-auto"
+						>
+							<p class="h-fit my-auto">Delete Quiz</p>
+						</span>
+					</Button>
+				{/if}
 			</div>
 		</div>
 
-		<div class="w-full p-7 pl-0 mb-auto md:pl-[3rem]">
+		<div class="w-full h-full p-7 pl-0 mb-auto md:pl-[3rem]">
 			<Router {url} />
 		</div>
 	</div>

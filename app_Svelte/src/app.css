@@ -79,3 +79,11 @@
 		@apply absolute w-screen min-h-svh;
 	}
 }
+
+.baton {
+	@apply bg-slate-600/50;
+}
+.baton:before,
+.baton:after {
+	@apply bg-slate-800;
+}

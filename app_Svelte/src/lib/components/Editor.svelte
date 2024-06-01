@@ -98,7 +98,7 @@
 >
 	{#if editor}
 		<div
-			class="grid grid-cols-6 md:grid-cols-[13] gap-[3px] sticky top-0 w-full left-0 z-10 mb-5 md:mb-10 bg-background pb-2 pt-6 -mt-4 border-b border-accent-500"
+			class="grid grid-cols-6 md:grid-cols-[13] gap-[3px] w-full left-0 z-10 mb-5 md:mb-10 bg-background pb-2 pt-6 -mt-4 border-b border-accent-500 sticky top-14 md:top-0"
 		>
 			<Button
 				class={editor.isActive("bold") && "bg-accent"}

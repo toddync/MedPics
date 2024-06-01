@@ -103,7 +103,7 @@
 	</div>
 
 	<div>
-		<Label class="text-xl flex"
+		<Label class="text-xl flex gap-2"
 			>Conteudo:
 			<p
 				class={`text-xs text-red-400 ${($errors?.content?.[0] && "visible") || "invisible size-0"} my-auto h-fit m-0 p-0`}
