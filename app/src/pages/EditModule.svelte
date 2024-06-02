@@ -57,7 +57,7 @@
 			schema.parse($data);
 			console.log($data);
 			await databases.updateDocument(db, modulesDB, id, $data);
-			navigate("/");
+			navigate("/MedPics/");
 		} catch (error) {
 			$errors = normalize(JSON.parse(error.message));
 		}
@@ -77,7 +77,9 @@
 	}
 	onMount(start);
 
-	$: $user.data !== undefined && $user.professor == false && navigate("/");
+	$: $user.data !== undefined &&
+		$user.professor == false &&
+		navigate("/MedPics/");
 </script>
 
 {#if $queried}

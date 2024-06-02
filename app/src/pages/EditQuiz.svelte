@@ -101,7 +101,7 @@
 			questoes: JSON.stringify($quiz.questoes),
 		});
 
-		navigate("/Quizzes");
+		navigate("/MedPics/Quizzes");
 	}
 
 	async function start() {
@@ -118,7 +118,9 @@
 	}
 	onMount(start);
 
-	$: $user.data !== undefined && $user.professor == false && navigate("/");
+	$: $user.data !== undefined &&
+		$user.professor == false &&
+		navigate("/MedPics/");
 </script>
 
 {#if $load}

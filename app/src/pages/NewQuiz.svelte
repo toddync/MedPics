@@ -100,10 +100,12 @@
 			creator_id: $user.data.userId,
 		});
 
-		navigate("/Quizzes");
+		navigate("/MedPics/Quizzes");
 	}
 
-	$: $user.data !== undefined && $user.professor == false && navigate("/");
+	$: $user.data !== undefined &&
+		$user.professor == false &&
+		navigate("/MedPics/");
 </script>
 
 {#if $load}

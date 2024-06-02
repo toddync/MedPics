@@ -52,7 +52,7 @@
 			} catch (error) {
 				$Url.pathname.toLowerCase() != "/login" &&
 					$Url.pathname.toLowerCase() != "/signup" &&
-					navigate("/Login");
+					navigate("/MedPics/Login");
 			}
 		})();
 		return true;
@@ -69,7 +69,7 @@
 	async function deleteQuiz(id) {
 		await databases.deleteDocument(db, quizzesDB, id);
 
-		navigate("/Quizzes");
+		navigate("/MedPics/Quizzes");
 	}
 
 	async function getModules() {
@@ -82,7 +82,7 @@
 	async function deleteModule(id) {
 		await databases.deleteDocument(db, modulesDB, id);
 
-		navigate("/");
+		navigate("/MedPics/");
 	}
 
 	$: $Url.pathname &&
@@ -130,7 +130,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/")}
+					on:click={() => navigate("/MedPics/")}
 				>
 					<Home />
 					<span
@@ -144,7 +144,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/Quizzes")}
+					on:click={() => navigate("/MedPics/Quizzes")}
 				>
 					<BookMarked />
 					<span
@@ -163,7 +163,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/NewModule")}
+						on:click={() => navigate("/MedPics/NewModule")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
@@ -186,7 +186,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/NewQuiz")}
+						on:click={() => navigate("/MedPics/NewQuiz")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus

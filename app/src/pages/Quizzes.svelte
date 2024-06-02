@@ -8,7 +8,9 @@
 	import { BookMarked } from "lucide-svelte";
 	import { navigate } from "svelte-routing";
 
-	$: $user.data == undefined && $user.data == {} && navigate("/Login");
+	$: $user.data == undefined &&
+		$user.data == {} &&
+		navigate("/MedPics/Login");
 </script>
 
 <div class="h-full pl-7 grid auto-rows-max md:grid-cols-2 lg:grid-cols-3 gap-5">
