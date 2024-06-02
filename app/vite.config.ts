@@ -1,12 +1,14 @@
+//@ts-check
 import path from "path";
-import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 
+// https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "./@"),
-        },
-    },
+	plugins: [svelte()],
+	resolve: {
+		alias: {
+			$lib: path.resolve("./src/lib"),
+		},
+	},
 });
