@@ -44,7 +44,7 @@
 					$credentials.email,
 					$credentials.password,
 				);
-				navigate("/MedPics/Login");
+				navigate("/Login");
 			} catch (e) {
 				$load = false;
 				console.log(e.message);
@@ -62,7 +62,7 @@
 		password: "",
 	});
 
-	$: $user.data !== undefined && navigate("/MedPics/");
+	$: $user.data !== undefined && navigate("/");
 </script>
 
 {#if $load}
@@ -115,7 +115,7 @@
 					<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<p
-						on:click={() => navigate("/MedPics/Login")}
+						on:click={() => navigate("/Login")}
 						class="text-sm h-min font-semibold mt-auto cursor-pointer"
 					>
 						Log in

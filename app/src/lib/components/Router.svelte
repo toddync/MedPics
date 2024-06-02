@@ -17,29 +17,29 @@
 
 <Router {url}>
 	<!--* Auth *-->
-	<Route path="/MedPics/Login" component={Login} />
-	<Route path="/MedPics/Signup" component={Signup} />
+	<Route path="/Login" component={Login} />
+	<Route path="/Signup" component={Signup} />
 
 	<!--* Modules *-->
-	<Route path="/MedPics/" component={Home} />
-	<Route path="/MedPics/NewModule" component={NewModule} />
-	<Route path="/MedPics/Module/:id" let:params>
+	<Route path="/" component={Home} />
+	<Route path="/NewModule" component={NewModule} />
+	<Route path="/Module/:id" let:params>
 		<Module id={params.id} />
 	</Route>
-	<Route path="/MedPics/EditModule/:id" let:params>
+	<Route path="/EditModule/:id" let:params>
 		<EditModule id={params.id} />
 	</Route>
 
 	<!--* Quizzes *-->
-	<Route path="/MedPics/Quizzes" component={Quizzes} />
-	<Route path="/MedPics/NewQuiz" component={NewQuiz} />
-	<Route path="/MedPics/Quiz/:id" let:params>
+	<Route path="/Quizzes" component={Quizzes} />
+	<Route path="/NewQuiz" component={NewQuiz} />
+	<Route path="/Quiz/:id" let:params>
 		<Quiz id={params.id} />
 	</Route>
-	<Route path="/MedPics/QuizResults/:id/:responses" let:params>
+	<Route path="/QuizResults/:id/:responses" let:params>
 		<QuizResults id={params.id} responses={JSON.parse(params.responses)} />
 	</Route>
-	<Route path="/MedPics/EditQuiz/:id" let:params>
+	<Route path="/EditQuiz/:id" let:params>
 		<EditQuiz id={params.id} />
 	</Route>
 </Router>

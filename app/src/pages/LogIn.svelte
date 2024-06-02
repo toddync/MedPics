@@ -8,7 +8,7 @@
 	import { navigate } from "svelte-routing";
 	import { writable } from "svelte/store";
 	import { z } from "zod";
-	import { account } from "../../appwrite";
+	import { account, professorsTeam, teams } from "../../appwrite";
 
 	const schema = z.object({
 		email: z.string().email("input a valid e-mail"),
@@ -35,7 +35,14 @@
 					$credentials.email,
 					$credentials.password,
 				);
-				navigate("/MedPics/");
+
+				$user.data = (await account.getSession("current")) || {};
+				try {
+					await teams.get(professorsTeam);
+					$user.professor = true;
+				} catch (e) {}
+
+				navigate("/");
 			} catch (e) {
 				$errors.email = ["incorrect email or password"];
 				$errors.password = ["incorrect email or password"];
@@ -51,7 +58,7 @@
 		password: "",
 	});
 
-	$: $user.data !== undefined && navigate("/MedPics/");
+	$: $user.data !== undefined && navigate("/");
 </script>
 
 <Card.Root
@@ -105,7 +112,7 @@
 				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<p
-					on:click={() => navigate("/MedPics/Signup")}
+					on:click={() => navigate("/Signup")}
 					class="text-sm h-min font-semibold mt-auto cursor-pointer"
 				>
 					Sign up

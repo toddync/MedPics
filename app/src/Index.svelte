@@ -38,23 +38,22 @@
 	document.documentElement.classList.add("dark");
 	export let url = "";
 
-	function login() {
-		(async () => {
-			try {
-				$user.data = (await account.getSession("current")) || {};
+	async function login() {
+		try {
+			$user.data = (await account.getSession("current")) || {};
 
-				getModules();
-				getQuizzes();
-				try {
-					let r = await teams.get(professorsTeam);
-					$user.professor = true;
-				} catch (e) {}
-			} catch (error) {
-				$Url.pathname.toLowerCase() != "/login" &&
-					$Url.pathname.toLowerCase() != "/signup" &&
-					navigate("/MedPics/Login");
-			}
-		})();
+			getModules();
+			getQuizzes();
+			try {
+				let r = await teams.get(professorsTeam);
+				$user.professor = true;
+			} catch (e) {}
+		} catch (e) {
+			!$Url.pathname.toLowerCase().includes("/login") &&
+				!$Url.pathname.toLowerCase().includes("/signup") &&
+				navigate("/Login");
+		}
+
 		return true;
 	}
 	onMount(login);
@@ -69,7 +68,7 @@
 	async function deleteQuiz(id) {
 		await databases.deleteDocument(db, quizzesDB, id);
 
-		navigate("/MedPics/Quizzes");
+		navigate("/Quizzes");
 	}
 
 	async function getModules() {
@@ -82,7 +81,7 @@
 	async function deleteModule(id) {
 		await databases.deleteDocument(db, modulesDB, id);
 
-		navigate("/MedPics/");
+		navigate("/");
 	}
 
 	$: $Url.pathname &&
@@ -130,7 +129,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/MedPics/")}
+					on:click={() => navigate("/")}
 				>
 					<Home />
 					<span
@@ -144,7 +143,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/MedPics/Quizzes")}
+					on:click={() => navigate("/Quizzes")}
 				>
 					<BookMarked />
 					<span
@@ -163,7 +162,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/MedPics/NewModule")}
+						on:click={() => navigate("/NewModule")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
@@ -186,7 +185,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/MedPics/NewQuiz")}
+						on:click={() => navigate("/NewQuiz")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
