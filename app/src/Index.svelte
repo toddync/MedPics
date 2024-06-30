@@ -90,6 +90,8 @@
 		$user.data !== undefined &&
 		getModules() &&
 		getQuizzes();
+
+	$: !(p.get("page")) && navigate("/index.html?page=Home")
 </script>
 
 {#if !(p.get("page") == "Login") && !(p.get("page") == "Signup")}
