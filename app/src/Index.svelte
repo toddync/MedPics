@@ -35,8 +35,10 @@
 
 	const expand = tweened(48, { duration: 1000 });
 
+	let p = $Url.searchParams;
+	$: p = $Url.searchParams
+
 	document.documentElement.classList.add("dark");
-	export let url = "";
 
 	async function login() {
 		try {
@@ -51,7 +53,7 @@
 		} catch (e) {
 			!$Url.pathname.toLowerCase().includes("/login") &&
 				!$Url.pathname.toLowerCase().includes("/signup") &&
-				navigate("/Login");
+				navigate("/index.html?page=Login");
 		}
 
 		return true;
@@ -68,7 +70,7 @@
 	async function deleteQuiz(id) {
 		await databases.deleteDocument(db, quizzesDB, id);
 
-		navigate("/Quizzes");
+		navigate("/index.html?page=Quizzes");
 	}
 
 	async function getModules() {
@@ -81,7 +83,7 @@
 	async function deleteModule(id) {
 		await databases.deleteDocument(db, modulesDB, id);
 
-		navigate("/");
+		navigate("/index.html?page=/Home");
 	}
 
 	$: $Url.pathname &&
@@ -90,9 +92,7 @@
 		getQuizzes();
 </script>
 
-{#if !$Url.pathname.toLowerCase().includes("login") && !$Url.pathname
-		.toLowerCase()
-		.includes("signup")}
+{#if !(p.get("page") == "Login") && !(p.get("page") == "Signup")}
 	<Search />
 	<div
 		class="absolute w-full h-full grid flex-wrap grid-cols-1 auto-rows-max"
@@ -129,7 +129,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/")}
+					on:click={() => navigate("/index.html?page=Home")}
 				>
 					<Home />
 					<span
@@ -143,7 +143,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/Quizzes")}
+					on:click={() => navigate("/index.html?page=Quizzes")}
 				>
 					<BookMarked />
 					<span
@@ -162,7 +162,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/NewModule")}
+						on:click={() => navigate("/index.html?page=NewModule")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
@@ -185,7 +185,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/NewQuiz")}
+						on:click={() => navigate("/index.html?page=NewQuiz")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
@@ -202,11 +202,7 @@
 					</Button>
 				{/if}
 
-				{#if $Url.pathname
-					.toLowerCase()
-					.includes("module/") && !$Url.pathname
-						.toLowerCase()
-						.includes("editmodule/")}
+				{#if p.get("page") == "Module" || p.get("page") == "EditModule"}
 					<hr class="border-t-4 rounded-lg my-3" />
 					<div
 						class="md:hidden h-[3rem] bg-border min-w-[4px] rounded-lg mx-1"
@@ -216,7 +212,7 @@
 						size="icon"
 						variant="ghost"
 						on:click={() =>
-							navigate(`/EditModule/${$modules.current.$id}`)}
+							navigate(`/index.html?page=EditModule&id=${$modules.current.$id}`)}
 					>
 						<NotebookPenIcon />
 						<span
@@ -240,11 +236,8 @@
 						</span>
 					</Button>
 				{/if}
-				{#if $Url.pathname
-					.toLowerCase()
-					.includes("quiz/") && !$Url.pathname
-						.toLowerCase()
-						.includes("editquiz/")}
+
+				{#if p.get("page") == "Quiz" || p.get("page") == "EditQuiz"}
 					<hr class="border-t-4 rounded-lg my-3" />
 					<div
 						class="md:hidden h-[3rem] bg-border min-w-[4px] rounded-lg mx-1"
@@ -254,7 +247,7 @@
 						size="icon"
 						variant="ghost"
 						on:click={() =>
-							navigate(`/EditQuiz/${$quizzes.current.$id}`)}
+							navigate(`/index.html?page=EditQuiz&id=${$quizzes.current.$id}`)}
 					>
 						<NotebookPenIcon />
 						<span
@@ -282,9 +275,9 @@
 		</div>
 
 		<div class="w-full h-full p-7 pl-0 mb-auto md:pl-[3rem]">
-			<Router {url} />
+			<Router {$Url} />
 		</div>
 	</div>
 {:else}
-	<Router {url} />
+	<Router {$Url} />
 {/if}

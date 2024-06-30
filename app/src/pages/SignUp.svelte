@@ -44,7 +44,7 @@
 					$credentials.email,
 					$credentials.password,
 				);
-				navigate("/Login");
+				navigate("/index.html?page=Login");
 			} catch (e) {
 				$load = false;
 				console.log(e.message);
@@ -62,7 +62,7 @@
 		password: "",
 	});
 
-	$: $user.data !== undefined && navigate("/");
+	$: $user.data !== undefined && navigate("/index.html?page=Home");
 </script>
 
 {#if $load}
@@ -115,7 +115,7 @@
 					<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<p
-						on:click={() => navigate("/Login")}
+						on:click={() => navigate("/index.html?page=Login")}
 						class="text-sm h-min font-semibold mt-auto cursor-pointer"
 					>
 						Log in

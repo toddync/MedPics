@@ -42,7 +42,7 @@
 					$user.professor = true;
 				} catch (e) {}
 
-				navigate("/");
+				navigate("/index.html?page=Home");
 			} catch (e) {
 				$errors.email = ["incorrect email or password"];
 				$errors.password = ["incorrect email or password"];
@@ -58,7 +58,7 @@
 		password: "",
 	});
 
-	$: $user.data !== undefined && navigate("/");
+	$: $user.data !== undefined && navigate("/index.html?page=Home");
 </script>
 
 <Card.Root
@@ -112,7 +112,7 @@
 				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<p
-					on:click={() => navigate("/Signup")}
+					on:click={() => navigate("/index.html?page=Signup")}
 					class="text-sm h-min font-semibold mt-auto cursor-pointer"
 				>
 					Sign up

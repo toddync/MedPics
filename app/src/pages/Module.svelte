@@ -8,7 +8,7 @@
 	import { modules } from "$lib/stores/modulesStore";
 	import Loader from "$lib/components/Loader.svelte";
 
-	$: $user.data == undefined && $user.data == {} && navigate("/Login");
+	$: $user.data == undefined && $user.data == {} && navigate("/index.html?page=Login");
 
 	const module = writable({
 		data: {},

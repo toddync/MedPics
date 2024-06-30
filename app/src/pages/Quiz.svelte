@@ -74,7 +74,7 @@
 		<Button
 			class="w-fit mx-auto font-extrabold"
 			on:click={() =>
-				navigate(`/QuizResults/${id}/${JSON.stringify($responses)}`)}
+				navigate(`/index.html?page=QuizResults&id=${id}&responses=${JSON.stringify($responses)}`)}
 			>Ver resultados</Button
 		>
 	{:else}

@@ -80,7 +80,7 @@
 					<Command.Item
 						itemid={module.$id}
 						onSelect={() =>
-							(navigate(`/Module/${module.$id}`) || true) &&
+							(navigate(`/index.html?page=Module&id=${module.$id}`) || true) &&
 							($showSearch = false)}
 					>
 						<Blocks />
@@ -102,7 +102,7 @@
 					<Command.Item
 						itemid={quiz.$id}
 						onSelect={() =>
-							(navigate(`/Quiz/${quiz.$id}`) || true) &&
+							(navigate(`/index.html?page=Quiz&id=${quiz.$id}`) || true) &&
 							($showSearch = false)}
 					>
 						<BookMarked />

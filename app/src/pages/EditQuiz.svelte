@@ -96,12 +96,13 @@
 
 		if (!valid) return;
 		$load = true;
-		await databases.updateDocument(db, modulesDB, id, {
+		console.log(id)
+		await databases.updateDocument(db, quizzesDB, id, {
 			...$quiz,
 			questoes: JSON.stringify($quiz.questoes),
 		});
 
-		navigate("/Quizzes");
+		navigate("/index.html?page=Quizzes");
 	}
 
 	async function start() {
@@ -118,7 +119,7 @@
 	}
 	onMount(start);
 
-	$: $user.data !== undefined && $user.professor == false && navigate("/");
+	$: $user.data !== undefined && $user.professor == false && navigate("/index.html?page=Home");
 </script>
 
 {#if $load}
