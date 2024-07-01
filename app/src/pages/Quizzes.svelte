@@ -8,7 +8,7 @@
 	import { BookMarked } from "lucide-svelte";
 	import { navigate } from "svelte-routing";
 
-	$: $user.data == undefined && $user.data == {} && navigate("/index.html?page=Login");
+	$: $user.data == undefined && $user.data == {} && navigate("/MedPics/?page=Login");
 </script>
 
 <div class="h-full pl-7 grid auto-rows-max md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -17,7 +17,7 @@
 			<Button
 				class="bg-transparent h-fit text-start p-0 hover:bg-transparent"
 				on:click={() => {
-					navigate(`/index.html?page=Quiz&id=${quiz.$id}`);
+					navigate(`/MedPics/?page=Quiz&id=${quiz.$id}`);
 				}}
 			>
 				<Card.Root

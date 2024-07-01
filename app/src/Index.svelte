@@ -53,7 +53,7 @@
 		} catch (e) {
 			!$Url.pathname.toLowerCase().includes("/login") &&
 				!$Url.pathname.toLowerCase().includes("/signup") &&
-				navigate("/index.html?page=Login");
+				navigate("/MedPics/?page=Login");
 		}
 
 		return true;
@@ -70,7 +70,7 @@
 	async function deleteQuiz(id) {
 		await databases.deleteDocument(db, quizzesDB, id);
 
-		navigate("/index.html?page=Quizzes");
+		navigate("/MedPics/?page=Quizzes");
 	}
 
 	async function getModules() {
@@ -83,7 +83,7 @@
 	async function deleteModule(id) {
 		await databases.deleteDocument(db, modulesDB, id);
 
-		navigate("/index.html?page=/Home");
+		navigate("/MedPics/?page=/Home");
 	}
 
 	$: $Url.pathname &&
@@ -91,7 +91,7 @@
 		getModules() &&
 		getQuizzes();
 
-	$: !(p.get("page")) && navigate("/index.html?page=Home")
+	$: !(p.get("page")) && navigate("/MedPics/?page=Home")
 </script>
 
 {#if !(p.get("page") == "Login") && !(p.get("page") == "Signup")}
@@ -131,7 +131,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/index.html?page=Home")}
+					on:click={() => navigate("/MedPics/?page=Home")}
 				>
 					<Home />
 					<span
@@ -145,7 +145,7 @@
 					class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex md:mb-3 mx-auto"
 					size="icon"
 					variant="ghost"
-					on:click={() => navigate("/index.html?page=Quizzes")}
+					on:click={() => navigate("/MedPics/?page=Quizzes")}
 				>
 					<BookMarked />
 					<span
@@ -164,7 +164,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/index.html?page=NewModule")}
+						on:click={() => navigate("/MedPics/?page=NewModule")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
@@ -187,7 +187,7 @@
 						class="md:group-hover:mt-2 md:group-hover:w-full md:group-hover:p-2 transition-all duration-400 ease-linear flex place-items-start mx-auto"
 						size="icon"
 						variant="ghost"
-						on:click={() => navigate("/index.html?page=NewQuiz")}
+						on:click={() => navigate("/MedPics/?page=NewQuiz")}
 					>
 						<div class="relative h-fit my-auto">
 							<Plus
@@ -214,7 +214,7 @@
 						size="icon"
 						variant="ghost"
 						on:click={() =>
-							navigate(`/index.html?page=EditModule&id=${$modules.current.$id}`)}
+							navigate(`/MedPics/?page=EditModule&id=${$modules.current.$id}`)}
 					>
 						<NotebookPenIcon />
 						<span
@@ -249,7 +249,7 @@
 						size="icon"
 						variant="ghost"
 						on:click={() =>
-							navigate(`/index.html?page=EditQuiz&id=${$quizzes.current.$id}`)}
+							navigate(`/MedPics/?page=EditQuiz&id=${$quizzes.current.$id}`)}
 					>
 						<NotebookPenIcon />
 						<span

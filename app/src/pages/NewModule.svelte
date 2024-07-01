@@ -55,7 +55,7 @@
 		try {
 			schema.parse($data);
 			await databases.createDocument(db, modulesDB, uuidv4(), $data);
-			navigate("/index.html?page=Home");
+			navigate("/MedPics/?page=Home");
 		} catch (error) {
 			$errors = normalize(JSON.parse(error.message));
 		}
@@ -64,7 +64,7 @@
 	function start() {}
 	onMount(start);
 
-	$: $user.data !== undefined && $user.professor == false && navigate("/index.html?page=Home");
+	$: $user.data !== undefined && $user.professor == false && navigate("/MedPics/?page=Home");
 	$: console.log($errors);
 </script>
 

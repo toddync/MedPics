@@ -102,7 +102,7 @@
 			questoes: JSON.stringify($quiz.questoes),
 		});
 
-		navigate("/index.html?page=Quizzes");
+		navigate("/MedPics/?page=Quizzes");
 	}
 
 	async function start() {
@@ -119,7 +119,7 @@
 	}
 	onMount(start);
 
-	$: $user.data !== undefined && $user.professor == false && navigate("/index.html?page=Home");
+	$: $user.data !== undefined && $user.professor == false && navigate("/MedPics/?page=Home");
 </script>
 
 {#if $load}
